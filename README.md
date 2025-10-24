@@ -1,5 +1,5 @@
 <div align="center">
-    <img height=150 src="https://raw.githubusercontent.com/seyLu/curator/main/curator.svg" alt="curator icon">
+    <img height=150 src="./curator.svg" alt="curator icon">
     <h1>Curator</h1>
     <p>A masonry gallery viewer for open museum APIs.</p>
     <p>
