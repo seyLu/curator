@@ -25,6 +25,7 @@
 
 - [Artic API (Art Institute of Chicago API)](https://api.artic.edu/docs/)
 
+<br>
 
 ### Developing Locally
 
