@@ -1,4 +1,4 @@
-import type { Image, ImageFetcher } from '../services/imageFetcher';
+import type { Image, ImageFetcher } from "../services/imageFetcher";
 
 export interface Artwork {
   id: string;
@@ -9,12 +9,12 @@ export interface Artwork {
 
 export const ArticFetcher: ImageFetcher = {
   async fetchImages(query: string, count: number): Promise<Image[]> {
-    const galleryAPI = 'https://api.artic.edu/api/v1/artworks';
-    const imageAPI = 'https://www.artic.edu/iiif/2/';
-    const fields = ['id', 'title', 'image_id'].join(',');
+    const galleryAPI = "https://api.artic.edu/api/v1/artworks";
+    const imageAPI = "https://www.artic.edu/iiif/2/";
+    const fields = ["id", "title", "image_id"].join(",");
 
-    let url = '';
-    if (query.trim() !== '') {
+    let url = "";
+    if (query.trim() !== "") {
       url = `${galleryAPI}/search?q=${query}&fields=${fields}`;
     } else {
       url = `${galleryAPI}?fields=${fields}`;
@@ -31,14 +31,14 @@ export const ArticFetcher: ImageFetcher = {
       for (const gallery of galleries) {
         gallery.image_url = `${imageAPI}/${gallery.image_id}/full/843,/0/default.jpg`;
       }
-      return galleries.map(gallery => ({
+      return galleries.map((gallery) => ({
         id: gallery.id,
         url: gallery.image_url,
-        alt: gallery.title
+        alt: gallery.title,
       }));
     } catch (error) {
-      console.error(`Error fetching gallery: ${error}`);
+      console.error(`Error fetching 'artic' gallery: ${error}`);
       return [];
     }
-  }
+  },
 };
