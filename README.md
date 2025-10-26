@@ -24,6 +24,7 @@
 ### Supported Open Museum APIs:
 
 - [Artic API (Art Institute of Chicago API)](https://api.artic.edu/docs/)
+- [Met API (The Metropolitan Museum of Art Collection API)](https://metmuseum.github.io/)
 
 <br>
 
