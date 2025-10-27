@@ -8,7 +8,10 @@ export interface Artwork {
 }
 
 export const ArticFetcher: ImageFetcher = {
-  async fetchImages(query: string, count: number): Promise<Image[]> {
+  async *fetchImages(
+    query: string,
+    count: number,
+  ): AsyncGenerator<Image, void, unknown> {
     const galleryAPI = "https://api.artic.edu/api/v1/artworks";
     const imageAPI = "https://www.artic.edu/iiif/2/";
     const fields = ["id", "title", "image_id"].join(",");
@@ -31,14 +34,15 @@ export const ArticFetcher: ImageFetcher = {
       for (const gallery of galleries) {
         gallery.image_url = `${imageAPI}/${gallery.image_id}/full/843,/0/default.jpg`;
       }
-      return galleries.map((gallery) => ({
-        id: gallery.id,
-        url: gallery.image_url,
-        alt: gallery.title,
-      }));
+      for (const gallery of galleries) {
+        yield {
+          id: gallery.id,
+          url: gallery.image_url,
+          alt: gallery.title,
+        };
+      }
     } catch (error) {
       console.error(`Error fetching 'artic' gallery: ${error}`);
-      return [];
     }
   },
 };

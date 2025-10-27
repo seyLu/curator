@@ -5,5 +5,5 @@ export interface Image {
 }
 
 export interface ImageFetcher {
-  fetchImages(query: string, count: number): Promise<Image[]>;
+  fetchImages(query: string, count: number): AsyncGenerator<Image, void, unknown>;
 }

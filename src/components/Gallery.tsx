@@ -1,50 +1,73 @@
-import { useEffect, useState } from 'react';
-import { Photo } from './Photo';
-import type { Image, ImageFetcher } from '../services/imageFetcher';
+import { useEffect, useState } from "react";
+import { Photo } from "./Photo";
+import type { Image, ImageFetcher } from "../services/imageFetcher";
 
 function chunkIntoColumns<T>(arr: T[], colCount: number): T[][] {
-  const cols = Array.from({ length: colCount }, () => [] as T[]);
-  arr.forEach((item, i) => {
-    if (cols[i % colCount] !== undefined) {
-      cols[i % colCount].push(item);
-    }
-  });
-  return cols;
+    const cols = Array.from({ length: colCount }, () => [] as T[]);
+    arr.forEach((item, i) => {
+        if (cols[i % colCount] !== undefined) {
+            cols[i % colCount].push(item);
+        }
+    });
+    return cols;
 }
 
 export function Gallery({
-  fetcher,
-  subject,
-  photoCount = 20,
-  colCount = 4
+    fetcher,
+    subject,
+    photoCount = 20,
+    colCount = 4,
 }: {
-  fetcher: ImageFetcher;
-  subject: string;
-  photoCount?: number;
-  colCount?: number;
+    fetcher: ImageFetcher;
+    subject: string;
+    photoCount?: number;
+    colCount?: number;
 }) {
-  const [galleries, setGalleries] = useState<Image[]>([]);
-  const colCalc = `calc(100%/${colCount})`;
-  const galleryRows = chunkIntoColumns(galleries, colCount);
+    const [galleries, setGalleries] = useState<Image[]>([]);
+    const colCalc = `calc(100%/${colCount})`;
+    const galleryRows = chunkIntoColumns(galleries, colCount);
 
-  useEffect(() => {
-    fetcher.fetchImages(subject, photoCount).then(setGalleries);
-  }, [fetcher, subject, photoCount]);
+    useEffect(() => {
+        let cancelled = false;
+        setGalleries([]);
 
-  return (
-    <div className="flex flex-wrap">
-      {galleryRows.map((row, rowIndex) => (
-        <div key={rowIndex} className="p-0.5" style={{ flex: colCalc, maxWidth: colCalc }}>
-          {row.map(gallery => (
-            <Photo
-              key={gallery.id}
-              image_alt={gallery.alt}
-              image_url={gallery.url}
-              image_classNames="align-middle w-full h-auto mt-1"
-            />
-          ))}
+        (async () => {
+            const generator = fetcher.fetchImages(subject, photoCount);
+
+            try {
+                for await (const img of generator) {
+                    if (cancelled) break;
+
+                    setGalleries((prev) => [...prev, img]);
+                }
+            } catch (error) {
+                console.error(`Error streaming images: ${error}`);
+            }
+        })();
+
+        return () => {
+            cancelled = true;
+        };
+    }, [fetcher, subject, photoCount]);
+
+    return (
+        <div className="flex flex-wrap">
+            {galleryRows.map((row, rowIndex) => (
+                <div
+                    key={rowIndex}
+                    className="p-0.5"
+                    style={{ flex: colCalc, maxWidth: colCalc }}
+                >
+                    {row.map((gallery) => (
+                        <Photo
+                            key={gallery.id}
+                            image_alt={gallery.alt}
+                            image_url={gallery.url}
+                            image_classNames="align-middle w-full h-auto mt-1"
+                        />
+                    ))}
+                </div>
+            ))}
         </div>
-      ))}
-    </div>
-  );
+    );
 }

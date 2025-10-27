@@ -11,7 +11,10 @@ interface Artwork {
 }
 
 export const MetFetcher: ImageFetcher = {
-  async fetchImages(query: string, count: number): Promise<Image[]> {
+  async *fetchImages(
+    query: string,
+    count: number,
+  ): AsyncGenerator<Image, void, unknown> {
     const galleryAPI = "https://collectionapi.metmuseum.org/public/collection/v1/";
     let url = "";
     if (query.trim() !== "") {
@@ -30,10 +33,9 @@ export const MetFetcher: ImageFetcher = {
       objectIDs = collection.objectIDs.splice(0, count);
     } catch (error) {
       console.error(`Error fetching 'met' gallery: ${error}`);
-      return [];
+      return;
     }
 
-    const images: Image[] = [];
     for (const objectID of objectIDs) {
       try {
         const res = await fetch(`${galleryAPI}/objects/${objectID}`);
@@ -41,16 +43,14 @@ export const MetFetcher: ImageFetcher = {
           throw new Error(`status: ${res.status}`);
         }
         const artwork: Artwork = await res.json();
-        images.push({
+        yield {
           id: artwork.objectID.toString(),
           url: artwork.primaryImageSmall,
           alt: artwork.title,
-        });
+        };
       } catch (error) {
-        console.error(`Error fetching 'met' artworks: ${error}`);
-        return [];
+        console.error(`Error fetching artwork ${objectID}: ${error}`);
       }
     }
-    return images;
   },
 };
