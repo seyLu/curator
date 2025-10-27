@@ -1,6 +1,6 @@
 import { NumberInput, TextInput, Select } from "@mantine/core";
 import type { OpenMuseumApi } from "../lib";
-import { openMuseumApis } from "../lib";
+import { museumOptions } from "../lib";
 
 export function Filter({
     openMuseumApi,
@@ -29,9 +29,11 @@ export function Filter({
                         label="Open Museum API"
                         name="open-museum-api"
                         placeholder="Pick an open museum API"
-                        data={openMuseumApis}
-                        value={openMuseumApi ? openMuseumApi.value : null}
-                        onChange={(_value, option) => setOpenMuseumApi(option)}
+                        data={Object.values(museumOptions)}
+                        value={openMuseumApi.value}
+                        onChange={(value) =>
+                            value && setOpenMuseumApi(museumOptions[value])
+                        }
                         autoSelectOnBlur
                         searchable
                     />
@@ -54,7 +56,7 @@ export function Filter({
                     <NumberInput
                         label="Number of Photos"
                         name="photo-count"
-                        onChange={setPhotoCount}
+                        onChange={(value) => setPhotoCount(Number(value))}
                         value={photoCount}
                         id="photo-count"
                         min={1}
@@ -70,7 +72,7 @@ export function Filter({
                     <NumberInput
                         label="Number of Columns"
                         name="col-count"
-                        onChange={setColCount}
+                        onChange={(value) => setColCount(Number(value))}
                         value={colCount}
                         id="col-count"
                         min={1}

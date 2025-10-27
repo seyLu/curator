@@ -1,7 +1,7 @@
 import { Gallery } from "./components/Gallery";
 import { Filter } from "./components/Filter";
 import { useState } from "react";
-import { openMuseumApis } from "./lib";
+import { museumOptions } from "./lib";
 import type { OpenMuseumApi } from "./lib";
 import { useDebouncedValue } from "@mantine/hooks";
 import "@mantine/core/styles.css";
@@ -20,7 +20,7 @@ function App() {
     const [colCount, setColCount] = useState<number>(3);
 
     const [openMuseumApi, setOpenMuseumApi] = useState<OpenMuseumApi>(
-        openMuseumApis[0],
+        museumOptions.artic,
     );
 
     return (

@@ -8,11 +8,15 @@ export interface OpenMuseumApi {
   label: string;
 }
 
-export const openMuseumApis: OpenMuseumApi[] = [
-  { fetcher: ArticFetcher, value: "artic", label: "Art Institute of Chicago API" },
-  {
+export const museumOptions: Record<string, OpenMuseumApi> = {
+  artic: {
+    fetcher: ArticFetcher,
+    value: "artic",
+    label: "Art Institute of Chicago API",
+  },
+  met: {
     fetcher: MetFetcher,
     value: "met",
     label: "The Metropolitan Museum of Art Collection API",
   },
-];
+};
