@@ -1,4 +1,4 @@
-import type { Image, ImageFetcher } from "../services/imageFetcher";
+import type { Image, ImageFetcher } from "../../services/imageFetcher";
 
 export interface Artwork {
   id: string;

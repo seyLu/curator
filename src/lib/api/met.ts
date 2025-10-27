@@ -1,4 +1,4 @@
-import type { Image, ImageFetcher } from "@/services/imageFetcher";
+import type { Image, ImageFetcher } from "../../services/imageFetcher";
 
 interface Collection {
   objectIDs: number[];
