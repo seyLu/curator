@@ -42,7 +42,7 @@ export function Filter({
                     <TextInput
                         label="Subject"
                         name="subject"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
                             setSubject(e.target.value);
                         }}
                         value={subject}

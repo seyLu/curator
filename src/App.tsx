@@ -10,11 +10,15 @@ import { MantineProvider } from "@mantine/core";
 
 function App() {
     const debouncems: number = 300;
+
     const [subject, setSubject] = useState<string>("cat");
     const [debouncedSubject] = useDebouncedValue(subject, debouncems);
+
     const [photoCount, setPhotoCount] = useState<number>(10);
     const [debouncedPhotoCount] = useDebouncedValue(photoCount, debouncems);
+
     const [colCount, setColCount] = useState<number>(3);
+
     const [openMuseumApi, setOpenMuseumApi] = useState<OpenMuseumApi>(
         openMuseumApis[0],
     );
