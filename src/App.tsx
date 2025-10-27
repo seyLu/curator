@@ -3,12 +3,14 @@ import { Filter } from "./components/Filter";
 import { useState } from "react";
 import { openMuseumApis } from "./lib";
 import type { OpenMuseumApi } from "./lib";
+import { useDebouncedValue } from "@mantine/hooks";
 import "@mantine/core/styles.css";
 
 import { MantineProvider } from "@mantine/core";
 
 function App() {
     const [subject, setSubject] = useState<string>("cat");
+    const [debouncedSubject] = useDebouncedValue(subject, 400);
     const [photoCount, setPhotoCount] = useState<number>(10);
     const [colCount, setColCount] = useState<number>(3);
     const [openMuseumApi, setOpenMuseumApi] = useState<OpenMuseumApi>(
@@ -30,7 +32,7 @@ function App() {
                 />
                 <Gallery
                     fetcher={openMuseumApi.fetcher}
-                    subject={subject}
+                    subject={debouncedSubject}
                     photoCount={photoCount}
                     colCount={colCount}
                 />
