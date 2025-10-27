@@ -20,15 +20,14 @@
 
 <br>
 
-
-**[See demo on Github Pages](https://seylu.github.io/curator)**
-
-<img height=500 src="./demo.png" alt="curator demo">
-
 ### Supported Open Museum APIs:
 
 - [Artic API (Art Institute of Chicago API)](https://api.artic.edu/docs/)
 - [Met API (The Metropolitan Museum of Art Collection API)](https://metmuseum.github.io/)
+
+<img height=500 src="./demo.png" alt="curator demo">
+
+[See demo on Github Pages](https://seylu.github.io/curator)
 
 <br>
 
