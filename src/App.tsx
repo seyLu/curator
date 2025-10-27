@@ -7,6 +7,7 @@ import { useDebouncedValue } from "@mantine/hooks";
 import "@mantine/core/styles.css";
 
 import { MantineProvider } from "@mantine/core";
+import { Footer } from "./components/Footer";
 
 function App() {
     const debouncems: number = 300;
@@ -25,7 +26,7 @@ function App() {
 
     return (
         <MantineProvider>
-            <div className="mx-auto container max-w-2xl p-3  flex flex-col gap-3">
+            <div className="mx-auto container p-3 max-w-2xl min-h-screen flex flex-col gap-3">
                 <Filter
                     openMuseumApi={openMuseumApi}
                     setOpenMuseumApi={setOpenMuseumApi}
@@ -36,12 +37,15 @@ function App() {
                     setPhotoCount={setPhotoCount}
                     setColCount={setColCount}
                 />
-                <Gallery
-                    fetcher={openMuseumApi.fetcher}
-                    subject={debouncedSubject}
-                    photoCount={debouncedPhotoCount}
-                    colCount={colCount}
-                />
+                <div className="grow">
+                    <Gallery
+                        fetcher={openMuseumApi.fetcher}
+                        subject={debouncedSubject}
+                        photoCount={debouncedPhotoCount}
+                        colCount={colCount}
+                    />
+                </div>
+                <Footer />
             </div>
         </MantineProvider>
     );
