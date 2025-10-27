@@ -44,3 +44,66 @@ npm i -D
 ```bash
 npm run dev
 ```
+
+<br>
+
+### Adding a new Open Museum API
+
+#### 1. Implement an image fetcher that satifies `ImageFetcher` interface
+```ts
+// src/services/imageFetcher.ts
+
+export interface Image {
+  id: string;
+  url: string;
+  alt: string;
+}
+
+export interface ImageFetcher {
+  fetchImages(query: string, count: number): AsyncGenerator<Image, void, unknown>;
+}
+```
+
+The image fetcher must:
+
+- Define an async `*fetchImages()` generator.
+
+- Yield Image objects containing `id`, `url`, and `alt`.
+
+```ts
+// src/lib/api/<api>.ts
+
+export const ArticFetcher: ImageFetcher = {
+  async *fetchImages(
+    query: string,
+    count: number,
+  ): AsyncGenerator<Image, void, unknown> {
+      ...
+      yield {
+        id: <image_id>,
+        url: <image_url>,
+        alt: <image_alt>,
+      };
+}
+```
+
+##### 2. Add it to the available museum options
+
+```ts
+// src/lib/index.ts
+
+export interface OpenMuseumApi {
+  fetcher: ImageFetcher;
+  value: string;
+  label: string;
+}
+
+export const museumOptions: Record<string, OpenMuseumApi> = {
+  artic: {
+    fetcher: ArticFetcher,
+    value: "artic",
+    label: "Art Institute of Chicago API",
+  },
+  ...
+}
+```
