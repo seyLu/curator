@@ -22,8 +22,9 @@
 
 ### Supported Open Museum APIs:
 
-- [Artic API (Art Institute of Chicago API)](https://api.artic.edu/docs/)
-- [Met API (The Metropolitan Museum of Art Collection API)](https://metmuseum.github.io/)
+- [Art Institute of Chicago](https://api.artic.edu/docs/)
+- [The Metropolitan Museum of Art Collection](https://metmuseum.github.io/)
+- [The Cleveland Museum of Art Open Access](https://openaccess-api.clevelandart.org/)
 
 <img height=500 src="./demo.png" alt="curator demo">
 
@@ -102,7 +103,7 @@ export const museumOptions: Record<string, OpenMuseumApi> = {
   artic: {
     fetcher: ArticFetcher,
     value: "artic",
-    label: "Art Institute of Chicago API",
+    label: "Art Institute of Chicago",
   },
   ...
 }

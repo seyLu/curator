@@ -15,13 +15,16 @@ export const MetFetcher: ImageFetcher = {
     query: string,
     count: number,
   ): AsyncGenerator<Image, void, unknown> {
-    const galleryAPI = "https://collectionapi.metmuseum.org/public/collection/v1/";
-    let url = "";
-    if (query.trim() !== "") {
-      url = `${galleryAPI}/search?q=${query}&hasImages=true`;
-    } else {
-      url = `${galleryAPI}`;
-    }
+    const galleryAPI = "https://collectionapi.metmuseum.org/public/collection/v1";
+
+    const baseUrl = query.trim() ? `${galleryAPI}/search` : galleryAPI;
+
+    const params = new URLSearchParams({
+      ...(query.trim() && { q: query }),
+      hasImage: "true",
+    });
+
+    const url = `${baseUrl}?${params}`;
 
     let objectIDs: number[] = [];
     try {
