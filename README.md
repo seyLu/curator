@@ -67,7 +67,7 @@ export interface ImageFetcher {
 
 The image fetcher must:
 
-- Define an async `*fetchImages()` generator.
+- Define an `async *fetchImages()` generator.
 
 - Yield Image objects containing `id`, `url`, and `alt`.
 
@@ -88,7 +88,7 @@ export const ArticFetcher: ImageFetcher = {
 }
 ```
 
-##### 2. Add it to the available museum options
+#### 2. Add it to the available museum options
 
 ```ts
 // src/lib/index.ts
