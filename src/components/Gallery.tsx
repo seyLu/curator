@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Photo } from "./Photo";
 import type { Image, ImageFetcher } from "../services/imageFetcher";
+import { Loader } from "@mantine/core";
 
 function chunkIntoColumns<T>(arr: T[], colCount: number): T[][] {
     const cols = Array.from({ length: colCount }, () => [] as T[]);
@@ -24,12 +25,14 @@ export function Gallery({
     colCount?: number;
 }) {
     const [galleries, setGalleries] = useState<Image[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
     const colCalc = `calc(100%/${colCount})`;
     const galleryRows = chunkIntoColumns(galleries, colCount);
 
     useEffect(() => {
         let cancelled = false;
         setGalleries([]);
+        setLoading(true);
 
         (async () => {
             const generator = fetcher.fetchImages(subject, photoCount);
@@ -39,6 +42,7 @@ export function Gallery({
                     if (cancelled) break;
 
                     setGalleries((prev) => [...prev, img]);
+                    setLoading(false);
                 }
             } catch (error) {
                 console.error(`Error streaming images: ${error}`);
@@ -51,7 +55,13 @@ export function Gallery({
     }, [fetcher, subject, photoCount]);
 
     return (
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap relative">
+            {loading && (
+                <div className="fixed inset-0 flex items-center justify-center">
+                    <Loader color="blue" />
+                </div>
+            )}
+
             {galleryRows.map((row, rowIndex) => (
                 <div
                     key={rowIndex}
