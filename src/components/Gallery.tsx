@@ -24,14 +24,14 @@ export function Gallery({
     photoCount?: number;
     colCount?: number;
 }) {
-    const [galleries, setGalleries] = useState<Image[]>([]);
+    const [images, setImages] = useState<Image[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const colCalc = `calc(100%/${colCount})`;
-    const galleryRows = chunkIntoColumns(galleries, colCount);
+    const galleryRows = chunkIntoColumns(images, colCount);
 
     useEffect(() => {
         let cancelled = false;
-        setGalleries([]);
+        setImages([]);
         setLoading(true);
 
         (async () => {
@@ -41,7 +41,7 @@ export function Gallery({
                 for await (const img of generator) {
                     if (cancelled) break;
 
-                    setGalleries((prev) => [...prev, img]);
+                    setImages((prev) => [...prev, img]);
                     setLoading(false);
                 }
             } catch (error) {
@@ -68,11 +68,11 @@ export function Gallery({
                     className="p-0.5"
                     style={{ flex: colCalc, maxWidth: colCalc }}
                 >
-                    {row.map((gallery) => (
+                    {row.map((image, index) => (
                         <Photo
-                            key={gallery.id}
-                            image_alt={gallery.alt}
-                            image_url={gallery.url}
+                            key={index}
+                            image_alt={image.alt}
+                            image_url={image.url}
                             image_classNames="align-middle w-full h-auto mt-1"
                         />
                     ))}
