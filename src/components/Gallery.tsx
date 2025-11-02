@@ -41,7 +41,8 @@ export function Gallery({
                 for await (const img of generator) {
                     if (cancelled) break;
 
-                    setImages((prev) => [...prev, img]);
+                    const imgID = img.id || crypto.randomUUID();
+                    setImages((prev) => [...prev, { ...img, imgID }]);
                     setLoading(false);
                 }
             } catch (error) {
@@ -62,22 +63,27 @@ export function Gallery({
                 </div>
             )}
 
-            {galleryRows.map((row, rowIndex) => (
-                <div
-                    key={rowIndex}
-                    className="p-0.5"
-                    style={{ flex: colCalc, maxWidth: colCalc }}
-                >
-                    {row.map((image, index) => (
-                        <Photo
-                            key={index}
-                            image_alt={image.alt}
-                            image_url={image.url}
-                            image_classNames="align-middle w-full h-auto mt-1"
-                        />
-                    ))}
-                </div>
-            ))}
+            {galleryRows
+                .filter((row) => row.length > 0)
+                .map((row) => {
+                    const rowKey = row.map((img) => img.id).join('-');
+                    return (
+                        <div
+                            key={rowKey}
+                            className="p-0.5"
+                            style={{ flex: colCalc, maxWidth: colCalc }}
+                        >
+                            {row.map((image) => (
+                                <Photo
+                                    key={image.id}
+                                    image_alt={image.alt}
+                                    image_url={image.url}
+                                    image_classNames="align-middle w-full h-auto mt-1"
+                                />
+                            ))}
+                        </div>
+                    );
+                })}
         </div>
     );
 }
