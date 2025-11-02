@@ -1,6 +1,6 @@
-import { NumberInput, TextInput, Select } from "@mantine/core";
-import type { OpenMuseumApi } from "../lib";
-import { museumOptions } from "../lib";
+import { NumberInput, Select, TextInput } from '@mantine/core';
+import type { OpenMuseumApi } from '../lib';
+import { museumOptions } from '../lib';
 
 export function Filter({
     openMuseumApi,

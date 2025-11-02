@@ -1,4 +1,4 @@
-import { Anchor } from "@mantine/core";
+import { Anchor } from '@mantine/core';
 
 export function Footer() {
     return (

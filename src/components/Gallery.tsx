@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Photo } from "./Photo";
-import type { Image, ImageFetcher } from "../services/imageFetcher";
-import { Loader } from "@mantine/core";
+import { Loader } from '@mantine/core';
+import { useEffect, useState } from 'react';
+import type { Image, ImageFetcher } from '../services/imageFetcher';
+import { Photo } from './Photo';
 
 function chunkIntoColumns<T>(arr: T[], colCount: number): T[][] {
     const cols = Array.from({ length: colCount }, () => [] as T[]);

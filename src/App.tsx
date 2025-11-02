@@ -1,18 +1,18 @@
-import { Gallery } from "./components/Gallery";
-import { Filter } from "./components/Filter";
-import { useState } from "react";
-import { museumOptions } from "./lib";
-import type { OpenMuseumApi } from "./lib";
-import { useDebouncedValue } from "@mantine/hooks";
-import "@mantine/core/styles.css";
+import { useDebouncedValue } from '@mantine/hooks';
+import { useState } from 'react';
+import { Filter } from './components/Filter';
+import { Gallery } from './components/Gallery';
+import { museumOptions } from './lib';
+import '@mantine/core/styles.css';
 
-import { MantineProvider } from "@mantine/core";
-import { Footer } from "./components/Footer";
+import { MantineProvider } from '@mantine/core';
+import { Footer } from './components/Footer';
+import type { OpenMuseumApi } from './lib';
 
 function App() {
     const debouncems: number = 300;
 
-    const [subject, setSubject] = useState<string>("cat");
+    const [subject, setSubject] = useState<string>('cat');
     const [debouncedSubject] = useDebouncedValue(subject, debouncems);
 
     const [photoCount, setPhotoCount] = useState<number>(10);
