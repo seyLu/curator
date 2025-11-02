@@ -37,13 +37,13 @@
 #### Install dependencies
 
 ```bash
-npm i -D
+pnpm i
 ```
 
 #### Run server & watch for changes
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 <br>
