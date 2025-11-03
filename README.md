@@ -8,6 +8,8 @@
         <a href="https://vite.dev/"><img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite"></img></a>
         <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="TailwindCSS"></img></a>
         <a href="https://mantine.dev/"><img src="https://img.shields.io/badge/Mantine-339AF0?style=for-the-badge&logo=mantine&logoColor=white" alt="Mantine"></img></a>
+        <a href="https://pnpm.io/"><img src="https://img.shields.io/badge/pnpm-yellow?style=for-the-badge&logo=pnpm&logoColor=white" alt="PNPM"></img></a>
+        <a href="https://biomejs.dev/"><img src="https://img.shields.io/badge/biome-60a5fa?style=for-the-badge&logo=biome&logoColor=white" alt="BiomeJS"></img></a>
     </p>
     <p>
         <a href="https://github.com/seyLu/curator/issues/new">Report Bug</a>
