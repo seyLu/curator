@@ -42,7 +42,7 @@ export function Gallery({
                     if (cancelled) break;
 
                     const imgID = img.id || crypto.randomUUID();
-                    setImages((prev) => [...prev, { ...img, imgID }]);
+                    setImages((prev) => [...prev, { ...img, id: imgID }]);
                     setLoading(false);
                 }
             } catch (error) {
